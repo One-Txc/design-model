@@ -6,25 +6,37 @@ import java.util.List;
 
 public class SimpleRequestInterceptorChain implements RequestInterceptorChain{
     private List<RequestInterceptor> requestInterceptorList = new LinkedList<RequestInterceptor>();
-    ThreadLocal<Iterator> xx = new ThreadLocal<Iterator>();
+    private Iterator<RequestInterceptor> iterator;
+    private Request req;
 
-
-    public boolean addInterceptor(RequestInterceptor interceptor){
-        return requestInterceptorList.add(interceptor);
+    public SimpleRequestInterceptorChain(Request req, List<RequestInterceptor> requestInterceptorList, int index){
+        this.req = req;
+        this.requestInterceptorList = requestInterceptorList;
+        if(requestInterceptorList == null || requestInterceptorList.size()<index){
+            System.out.println("初始化异常－－应该抛出，暂不处理");
+        }
+        this.iterator = requestInterceptorList.listIterator(index);
     }
 
+    public void excue(Request req) {
 
-    public void excue(Request req, Iterator<RequestInterceptor> iterator) {
+        //
+
+
         if(iterator.hasNext()){
             RequestInterceptor interceptor = iterator.next();
-            interceptor.deal(req,this,iterator);
+            interceptor.deal(req,this);
         }else {
             //具体
             System.out.println("拦截器处理完成");
         }
+
+
+
+
     }
 
-    public Iterator<RequestInterceptor> getIterator() {
-        return requestInterceptorList.iterator();
+    public void setRequestInterceptorList(List<RequestInterceptor> requestInterceptorList) {
+        this.requestInterceptorList = requestInterceptorList;
     }
 }

@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class AgeInterceptor implements RequestInterceptor{
-    public void deal(Request req, RequestInterceptorChain chain, Iterator<RequestInterceptor> iterator) {
+    public void deal(Request req, RequestInterceptorChain chain) {
         System.out.println("AgeInterceptor.deal");
         Map<String,String> map = req.getHeader();
         String age = map.get("age");
@@ -16,6 +16,6 @@ public class AgeInterceptor implements RequestInterceptor{
         }else {
             System.out.println("有age，不处理");
         }
-        chain.excue(req,iterator);
+        chain.excue(req);
     }
 }
