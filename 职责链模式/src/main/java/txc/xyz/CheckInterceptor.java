@@ -16,7 +16,7 @@ public class CheckInterceptor implements RequestInterceptor{
             System.out.println("验证失败");
         }else {
             System.out.println("验证通过");
+            chain.excue(req,iterator);
         }
-        chain.excue(req,iterator);
     }
 }
