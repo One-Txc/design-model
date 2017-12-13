@@ -4,28 +4,31 @@ package txc.xyz;
 import org.junit.Before;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class Test {
-    private RequestInterceptorChain requestInterceptorChain;
+    private List<RequestInterceptor> interceptorList;
 
     @Before
     public void before(){
-        requestInterceptorChain = new SimpleRequestInterceptorChain();
-        requestInterceptorChain.addInterceptor(new CheckInterceptor());
-        requestInterceptorChain.addInterceptor(new AgeInterceptor());
+        interceptorList = new LinkedList<RequestInterceptor>();
+        interceptorList.add(new CheckInterceptor());
+        interceptorList.add(new AgeInterceptor());
     }
 
     @org.junit.Test
     public void test(){
         Request req = new Request();
-        //requestInterceptorChain.excue(req, requestInterceptorChain.getIterator());
+        Map<String,String> reqMap = req.getHeader();
+        reqMap.put("name","txc");
+        //reqMap.put("pwd","xyz");
 
-//        Iterator<RequestInterceptor> i1 = requestInterceptorChain.getIterator();
-//        System.out.println(i1.next().getClass()+"");
-//        Iterator<RequestInterceptor> i2 = requestInterceptorChain.getIterator();
-//        System.out.println(i2.next().getClass()+"");
-//        System.out.println(i2.next().getClass()+"");
+        SimpleRequestInterceptorChain chain = new SimpleRequestInterceptorChain(interceptorList);
 
-        System.out.println(requestInterceptorChain.getIterator() == requestInterceptorChain.getIterator());
+        Response resp = chain.excue(req);
+        resp.getHeader();
+
     }
 }

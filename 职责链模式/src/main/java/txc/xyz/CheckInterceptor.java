@@ -4,7 +4,6 @@ package txc.xyz;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class CheckInterceptor implements RequestInterceptor{
