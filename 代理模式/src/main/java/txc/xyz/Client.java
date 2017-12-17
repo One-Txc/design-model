@@ -5,7 +5,16 @@ package txc.xyz;
  */
 public class Client {
     public static void main(String[] args) {
-        Moveable m = new Tank2();
-        m.move();
+        Moveable m = new Tank();
+        //m.move();
+
+        TankTimeProxy ttp = new TankTimeProxy(m);
+        //ttp.move();
+
+        TankLogProxy tlp = new TankLogProxy(ttp);
+        tlp.move();
+
+
+
     }
 }
