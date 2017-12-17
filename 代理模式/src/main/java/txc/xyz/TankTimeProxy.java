@@ -3,10 +3,10 @@ package txc.xyz;
 /**
  * Created by txc on 17-12-17.
  */
-public class Tank3 implements Moveable{
+public class TankTimeProxy implements Moveable{
     private Tank tank;
 
-    public Tank3(Tank tank){
+    public TankTimeProxy(Tank tank){
         this.tank = tank;
     }
 
